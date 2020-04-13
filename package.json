@@ -1,17 +1,32 @@
 {
-  "name": "ui-hooks",
-  "version": "1.0.0",
-  "description": "custom hooks for web ui action",
-  "main": "index.js",
-  "repository": "https://github.com/connect-dot/ui-hooks.git",
-  "author": "Stark Jeon",
-  "license": "MIT",
-  "dependencies": {
-    "react": "^16.13.1"
-  },
-  "devDependencies": {
-    "@types/node": "^13.11.1",
-    "@types/react": "^16.9.34",
-    "prettier": "^2.0.4"
-  }
+    "name": "ui-hooks",
+    "version": "0.0.1",
+    "description": "custom hooks for web ui action",
+    "main": "index.js",
+    "repository": "https://github.com/connect-dot/ui-hooks.git",
+    "keywords": [
+        "hooks",
+        "custom-hooks"
+    ],
+    "author": {
+        "name": "Jeontaeyun",
+        "email": "a01058406602@gmail.com",
+        "url": "https://github.com/Jeontaeyun"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.27.0",
+        "@typescript-eslint/parser": "^2.27.0",
+        "react": "^16.13.1"
+    },
+    "scripts": {
+        "prettier": "prettier --write \"src/**/*.{ts,tsx,js}\"",
+        "tslint": "tslint --project tsconfig.json --fix",
+        "build": "tsc src/*"
+    },
+    "devDependencies": {
+        "@types/node": "^13.11.1",
+        "@types/react": "^16.9.34",
+        "prettier": "^2.0.4"
+    }
 }
