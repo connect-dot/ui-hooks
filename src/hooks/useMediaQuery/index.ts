@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
-//@ts-ignore;
-import browserEnv from "browser-env";
-browserEnv();
-
 interface IResponsibleHookConfig {
     [type: string]: string;
+}
+
+function checkBrowser() {
+    if (typeof window !== undefined) {
+        return true;
+    }
+    return false;
 }
 
 function checkPC() {
@@ -39,75 +42,81 @@ function sortConfigWithSize(config: IResponsibleHookConfig, order: "ASC" | "DESC
     return sortedConfig;
 }
 
-export const useMediaQuery = (config: IResponsibleHookConfig, initial: string) => {
-    const [mediaType, setMediaType] = useState<string>();
-    const latestType = useRef<string>();
-
-    checkConfig(config);
-
-    const sortedConfig = useMemo(() => sortConfigWithSize(config, "DESC"), [config]);
-    const configKeys = useMemo(() => Object.keys(sortedConfig), [sortedConfig]);
-
-    const eventHandlerGenerator = useCallback(
-        (type: string) => (event: MediaQueryListEvent) => {
-            if (event.matches) {
-                setMediaType(prev => {
-                    latestType.current = prev;
-                    return type;
-                });
-            } else {
-                const index = configKeys.findIndex(value => value === type);
-                if (index && index - 1 >= 0) {
-                    setMediaType(configKeys[index - 1]);
-                } else {
-                    setMediaType(initial);
-                }
-            }
-        },
-        [initial, configKeys]
-    );
-
-    const mediaQuerys = useMemo(
-        () =>
-            configKeys.map(key => {
-                const mediaQuery = window.matchMedia(`screen and (max-width: ${config[key]})`);
-                return { mediaQuery, eventHandler: eventHandlerGenerator(key), type: key };
-            }),
-        [configKeys]
-    );
-
-    useEffect(() => {
-        const shouldInitial = !mediaQuerys.reverse().some(item => {
-            const { mediaQuery, type } = item;
-            if (mediaQuery.matches) {
-                setMediaType(type);
-                latestType.current = type;
-                return true;
-            }
-            return false;
-        });
-        if (shouldInitial) {
-            setMediaType(initial);
+export const useMediaQuery = (config: IResponsibleHookConfig, initial: string): [string, any?] => {
+    try {
+        if (!checkBrowser()) {
+            throw new Error("It is not broswer environment, you need to use this in browser environment");
         }
-    }, [mediaQuerys, initial]);
+        const [mediaType, setMediaType] = useState<string>("");
+        const latestType = useRef<string>("");
 
-    useEffect(() => {
-        if (checkPC()) {
-            mediaQuerys.forEach(item => {
-                const { mediaQuery, eventHandler } = item;
-                mediaQuery.addEventListener("change", eventHandler);
+        checkConfig(config);
+
+        const sortedConfig = useMemo(() => sortConfigWithSize(config, "DESC"), [config]);
+        const configKeys = useMemo(() => Object.keys(sortedConfig), [sortedConfig]);
+
+        const eventHandlerGenerator = useCallback(
+            (type: string) => (event: MediaQueryListEvent) => {
+                if (event.matches) {
+                    setMediaType(prev => {
+                        latestType.current = prev;
+                        return type;
+                    });
+                } else {
+                    const index = configKeys.findIndex(value => value === type);
+                    if (index && index - 1 >= 0) {
+                        setMediaType(configKeys[index - 1]);
+                    } else {
+                        setMediaType(initial);
+                    }
+                }
+            },
+            [initial, configKeys]
+        );
+
+        const mediaQuerys = useMemo(
+            () =>
+                configKeys.map(key => {
+                    const mediaQuery = window.matchMedia(`screen and (max-width: ${config[key]})`);
+                    return { mediaQuery, eventHandler: eventHandlerGenerator(key), type: key };
+                }),
+            [configKeys]
+        );
+
+        useEffect(() => {
+            const shouldInitial = !mediaQuerys.reverse().some(item => {
+                const { mediaQuery, type } = item;
+                if (mediaQuery.matches) {
+                    setMediaType(type);
+                    latestType.current = type;
+                    return true;
+                }
+                return false;
             });
+            if (shouldInitial) {
+                setMediaType(initial);
+            }
+        }, [mediaQuerys, initial]);
 
-            return () => {
+        useEffect(() => {
+            if (checkPC()) {
                 mediaQuerys.forEach(item => {
                     const { mediaQuery, eventHandler } = item;
-                    mediaQuery.removeEventListener("change", eventHandler);
+                    mediaQuery.addEventListener("change", eventHandler);
                 });
-            };
-        }
-    }, [mediaQuerys]);
 
-    return [mediaType];
+                return () => {
+                    mediaQuerys.forEach(item => {
+                        const { mediaQuery, eventHandler } = item;
+                        mediaQuery.removeEventListener("change", eventHandler);
+                    });
+                };
+            }
+        }, [mediaQuerys]);
+        return [mediaType];
+    } catch (error) {
+        return ["Error", error];
+    }
 };
 
 export default useMediaQuery;

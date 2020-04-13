@@ -1,6 +1,6 @@
 {
     "name": "@connect-dot/ui-hooks",
-    "version": "0.0.2-alpha6",
+    "version": "0.0.2-beta",
     "description": "custom hooks for web ui action",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -32,7 +32,6 @@
         "publish": "yarn pre-publish && npm publish --access public"
     },
     "dependencies": {
-        "browser-env": "^3.3.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1"
     },
