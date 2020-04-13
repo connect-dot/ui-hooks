@@ -1,10 +1,14 @@
 {
     "name": "@connect-dot/ui-hooks",
-    "version": "0.0.1-alpha",
+    "version": "0.0.1-beta",
     "description": "custom hooks for web ui action",
-    "main": "index.js",
+    "main": "dist/index.js",
+    "typings": "types/index.d.ts",
     "license": "MIT",
-    "repository": "https://github.com/connect-dot/ui-hooks.git",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/connect-dot/ui-hooks.git"
+    },
     "keywords": [
         "react",
         "hooks",
@@ -21,11 +25,11 @@
         "build": "tsc src/*"
     },
     "dependencies": {
-        "@typescript-eslint/eslint-plugin": "^2.27.0",
-        "@typescript-eslint/parser": "^2.27.0",
         "react": "^16.13.1"
     },
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.27.0",
+        "@typescript-eslint/parser": "^2.27.0",
         "@types/node": "^13.11.1",
         "@types/react": "^16.9.34",
         "prettier": "^2.0.4"
