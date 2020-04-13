@@ -1,3 +1,1 @@
-import * as hooks from "./hooks";
-
-export default { hooks };
+export { useMediaQuery } from "./hooks";

@@ -1,9 +1,14 @@
 {
     "name": "@connect-dot/ui-hooks",
-    "version": "0.0.1-beta",
+    "version": "0.0.2-alpha6",
     "description": "custom hooks for web ui action",
     "main": "dist/index.js",
-    "typings": "types/index.d.ts",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -22,16 +27,27 @@
     "scripts": {
         "prettier": "prettier --write \"src/**/*.{ts,tsx,js}\"",
         "tslint": "tslint --project tsconfig.json --fix",
-        "build": "tsc src/*"
+        "build": "tsc",
+        "pre-publish": "yarn prettier && yarn tslint &&  yarn build",
+        "publish": "yarn pre-publish && npm publish --access public"
     },
     "dependencies": {
-        "react": "^16.13.1"
+        "browser-env": "^3.3.0",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^2.27.0",
-        "@typescript-eslint/parser": "^2.27.0",
         "@types/node": "^13.11.1",
         "@types/react": "^16.9.34",
-        "prettier": "^2.0.4"
-    }
+        "@typescript-eslint/eslint-plugin": "^2.27.0",
+        "@typescript-eslint/parser": "^2.27.0",
+        "prettier": "^2.0.4",
+        "typescript": "^3.8.3"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/MIT"
+        }
+    ]
 }

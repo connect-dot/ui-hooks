@@ -1,0 +1,8 @@
+examples/
+.awcache
+.vscode
+config
+src
+node_modules
+.git*
+.idea

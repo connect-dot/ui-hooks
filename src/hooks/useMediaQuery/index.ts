@@ -1,4 +1,7 @@
 import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
+//@ts-ignore;
+import browserEnv from "browser-env";
+browserEnv();
 
 interface IResponsibleHookConfig {
     [type: string]: string;
