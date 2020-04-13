@@ -1,6 +1,6 @@
 {
     "name": "@connect-dot/ui-hooks",
-    "version": "0.0.1",
+    "version": "0.0.1-alpha",
     "description": "custom hooks for web ui action",
     "main": "index.js",
     "license": "MIT",
