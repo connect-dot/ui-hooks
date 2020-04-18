@@ -16,6 +16,7 @@ I hope this project is useful for solving that kind of problem.
 
 ## API
 
-| API                              | Result             | Description                  |
-| -------------------------------- | ------------------ | ---------------------------- |
-| `useMediaQuery(config, initial)` | [mediaType, error] | get Media Query from config. |
+| API                              | Result             | Parameter                                       | Description                               |
+| -------------------------------- | ------------------ | ----------------------------------------------- | ----------------------------------------- |
+| `useMediaQuery(config, initial)` | [mediaType, error] | `config : { key : string }`, `initial : string` | get Media Query from config.              |
+| `useScrollLock(on)`              | void               | `on : boolean`                                  | scrollLock when some component is visible |
