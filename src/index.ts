@@ -1,1 +1,1 @@
-export { useMediaQuery } from "./hooks";
+export { useMediaQuery, useScrollLock } from "./hooks";
