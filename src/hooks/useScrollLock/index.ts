@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 type TScrollOptions = {
     overflowX: string;
@@ -6,7 +6,7 @@ type TScrollOptions = {
 };
 
 export const useScrollLock = (on: boolean) => {
-    const bodyStyles = document.body?.style;
+    const bodyStyles = document.body.style;
 
     const overflowYOfBody = bodyStyles.overflowX;
     const overflowXOfBody = bodyStyles.overflowY;
@@ -16,19 +16,25 @@ export const useScrollLock = (on: boolean) => {
             overflowX: overflowXOfBody,
             overflowY: overflowYOfBody,
         };
+
         const scrollLockOptions = {
             overflowX: "hidden",
             overflowY: "hidden",
         };
+
         const handleBodyScroll = (scrollOptions: TScrollOptions) => {
             bodyStyles.overflowX = scrollOptions.overflowX;
             bodyStyles.overflowY = scrollOptions.overflowY;
         };
+
         if (on) {
             overflowYOfBody && handleBodyScroll(currentScrollOptions);
         } else {
             overflowYOfBody && handleBodyScroll(scrollLockOptions);
         }
+
+        bodyStyles.overflow = "scroll";
+
         return () => {
             overflowYOfBody && handleBodyScroll(scrollLockOptions);
         };
