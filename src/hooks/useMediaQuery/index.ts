@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 interface IResponsibleHookConfig {
     [type: string]: string;
 }
@@ -14,9 +14,8 @@ function checkPC() {
     const PC_OS = "win16|win32|win64|mac|macintel";
     if (navigator.platform && PC_OS.indexOf(navigator.platform.toLowerCase()) >= 0) {
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 function checkConfig(config: any) {
@@ -62,14 +61,12 @@ export const useMediaQuery = (config: IResponsibleHookConfig, initial: string): 
                         latestType.current = prev;
                         return type;
                     });
-                } else {
-                    const index = configKeys.findIndex(value => value === type);
-                    if (index && index - 1 >= 0) {
-                        setMediaType(configKeys[index - 1]);
-                    } else {
-                        setMediaType(initial);
-                    }
                 }
+                const index = configKeys.findIndex(value => value === type);
+                if (index && index - 1 >= 0) {
+                    setMediaType(configKeys[index - 1]);
+                }
+                setMediaType(initial);
             },
             [initial, configKeys]
         );
