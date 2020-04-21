@@ -41,7 +41,7 @@ function sortConfigWithSize(config: IResponsibleHookConfig, order: Order = "ASC"
         return afterSize - beforeSize;
     });
 
-    return Object.fromEntries(sortConfig);
+    return Object.fromEntries(configEntries);
 }
 
 export const useMediaQuery = (config: IResponsibleHookConfig = {}, initial: string): [string, any?] => {
