@@ -63,8 +63,9 @@ export const useMediaQuery = (config: IResponsibleHookConfig = {}, initial: stri
                         return type;
                     });
                 } else {
-                    if (configKeys.includes(type)) {
-                        setMediaType(type);
+                    const index = configKeys.findIndex(value => value === type);
+                    if (index - 1 >= 0) {
+                        setMediaType(configKeys[index - 1]);
                     } else {
                         setMediaType(initial);
                     }
