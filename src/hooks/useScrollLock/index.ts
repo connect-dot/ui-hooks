@@ -6,13 +6,13 @@ type TScrollOptions = {
 };
 
 export const useScrollLock = (on: boolean) => {
+    const bodyStyles = document.body?.style;
+
+    const [overflowYOfBody, setOverflowYOfBody] = useState<string>(bodyStyles.overflowY);
+
+    const [overflowXOfBody, setOverflowXOfBody] = useState<string>(bodyStyles.overflowX);
+
     useEffect(() => {
-        const body = document.body;
-
-        const [overflowYOfBody, setOverflowYOfBody] = useState<string | undefined>(body?.style.overflowY);
-
-        const [overflowXOfBody, setOverflowXOfBody] = useState<string | undefined>(body?.style.overflowX);
-
         const currentScrollOptions = {
             overflowX: overflowXOfBody,
             overflowY: overflowYOfBody,
@@ -24,9 +24,10 @@ export const useScrollLock = (on: boolean) => {
         };
 
         const handleBodyScroll = (scrollOptions: TScrollOptions) => {
-            body.style.overflowX = scrollOptions.overflowX;
-            body.style.overflowY = scrollOptions.overflowY;
+            bodyStyles.overflowX = scrollOptions.overflowX;
+            bodyStyles.overflowY = scrollOptions.overflowY;
         };
+
         if (on) {
             overflowYOfBody && handleBodyScroll(currentScrollOptions);
         } else {
