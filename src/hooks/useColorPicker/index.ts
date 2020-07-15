@@ -10,6 +10,7 @@ const INIT_COLOR = "#ffffff";
 const useColorPicker = (img: ImageType, position: ColorPosition = { x: 0, y: 0 }, initColor = INIT_COLOR) => {
     const [color, setColor] = useState(initColor);
     const [loading, setLoading] = useState(true);
+
     const extractColorFromImage = useCallback(async () => {
         try {
             setLoading(true);
@@ -24,7 +25,7 @@ const useColorPicker = (img: ImageType, position: ColorPosition = { x: 0, y: 0 }
             setLoading(false);
             throw error;
         }
-    }, [img]);
+    }, [img, initColor, position]);
 
     useEffect(() => {
         extractColorFromImage();
@@ -35,7 +36,7 @@ const useColorPicker = (img: ImageType, position: ColorPosition = { x: 0, y: 0 }
 
 async function convertImageToString(imgURL: ImageType) {
     try {
-        return;
+        return imgURL;
     } catch (error) {
         console.error(error);
         return error;
@@ -48,6 +49,7 @@ async function mountCanvas() {
         if (!checkCanvas(canvas)) throw new Error("This browser doesn't support canvas apis");
 
         canvas.id = CANVAS_ID;
+        canvas.hidden = true;
         document.body.appendChild(canvas);
 
         return true;
@@ -63,7 +65,7 @@ async function unMountCanvas() {
         const context = canvas.getContext("2d");
 
         context && context.clearRect(0, 0, canvas.width, canvas.height);
-        context && context.beginPath;
+        context && context.beginPath();
 
         return true;
     } catch (error) {
@@ -79,13 +81,14 @@ async function extractColor(url: string, position: ColorPosition, initColor: str
         const context = canvas.getContext("2d");
         const img = new Image();
         img.src = url;
+        img.crossOrigin = "Anonymous";
         context &&
             (img.onload = function () {
                 context.drawImage(img, 0, 0);
                 const pixel = context.getImageData(x, y, 1, 1).data;
                 const isTransparent = validateTransparent(pixel);
                 const hexCode = "#" + ("000000" + rgbToHex(pixel[0], pixel[1], pixel[2])).slice(-6);
-                isTransparent ? Promise.resolve(hexCode) : Promise.resolve(initColor);
+                isTransparent ? resolve(initColor) : resolve(hexCode);
             });
     });
 }
