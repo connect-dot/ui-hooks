@@ -16,6 +16,7 @@ I hope this project is useful for solving that kind of problem.
 
 ## API
 
+<<<<<<< HEAD
 | API                              | Result             | Parameter                                       | Description                               |
 | -------------------------------- | ------------------ | ----------------------------------------------- | ----------------------------------------- |
 | `useMediaQuery(config, initial)` | [mediaType, error] | `config : { key : string }`, `initial : string` | get Media Query from config.              |
@@ -55,3 +56,10 @@ const Component : React.FC<IProps> => {
 ```
 
 
+=======
+| API                                         | Result             | Parameter                                                                          | Description                               |
+| ------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------- | ----------------------------------------- |
+| `useMediaQuery(config, initial)`            | [mediaType, error] | `config : { key : string }`, `initial : string`                                    | get Media Query from config.              |
+| `useScrollLock(on)`                         | void               | `on : boolean`                                                                     | scrollLock when some component is visible |
+| `useColorPick(image, position, initColor?)` | {color, loading}   | `image: string | File`, `position : { x: number, y: number }`, `initColor: string` | hook for color pick from image            |
+>>>>>>> 82ce810 (Docs : write about useColorPick API)
