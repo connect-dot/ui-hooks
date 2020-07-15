@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { rgbToHex } from "../../shared/utils";
 
 type ImageType = File | string;
 type ColorPosition = { x: number; y: number };
@@ -42,8 +43,10 @@ async function convertImageToString(imgURL: ImageType) {
 async function mountCanvas() {
     try {
         const canvas = document.createElement("canvas");
-        document.body.appendChild(canvas);
         canvas.id = CANVAS_ID;
+        document.body.appendChild(canvas);
+
+        return true;
     } catch (error) {
         console.error(error);
         throw error;
@@ -52,6 +55,13 @@ async function mountCanvas() {
 
 async function unMountCanvas() {
     try {
+        const canvas = document.getElementById(CANVAS_ID) as HTMLCanvasElement;
+        const context = canvas.getContext("2d");
+
+        context && context.clearRect(0, 0, canvas.width, canvas.height);
+        context && context.beginPath;
+
+        return true;
     } catch (error) {
         console.error(error);
         throw error;
@@ -83,11 +93,6 @@ async function draw(url: string, position: ColorPosition) {
 
 function validateTransparent(pixel: Uint8ClampedArray) {
     return Number(pixel[0]) === 0 && Number(pixel[1]) === 0 && Number(pixel[2]) === 0 && Number(pixel[3]) === 0;
-}
-
-function rgbToHex(r: number, g: number, b: number) {
-    if (r > 255 || g > 255 || b > 255) throw "Invalid color component";
-    return ((r << 16) | (g << 8) | b).toString(16);
 }
 
 export default useColorPicker;
