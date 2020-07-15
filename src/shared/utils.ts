@@ -14,6 +14,10 @@ export function checkPC() {
     }
 }
 
+export function checkCanvas(canvas: HTMLCanvasElement) {
+    return Boolean(canvas.getContext("2d"));
+}
+
 export function rgbToHex(r: number, g: number, b: number) {
     if (r > 255 || g > 255 || b > 255) throw "Invalid color component";
 
