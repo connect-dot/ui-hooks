@@ -16,50 +16,8 @@ I hope this project is useful for solving that kind of problem.
 
 ## API
 
-<<<<<<< HEAD
-| API                              | Result             | Parameter                                       | Description                               |
-| -------------------------------- | ------------------ | ----------------------------------------------- | ----------------------------------------- |
-| `useMediaQuery(config, initial)` | [mediaType, error] | `config : { key : string }`, `initial : string` | get Media Query from config.              |
-| `useScrollLock(on)`              | void               | `on : boolean`                                  | scrollLock when some component is visible |
-
-
-
-## Example
-
-There is some example code with Typescript. If you want to use Javascript, you can replace enum to object. 
-
-### useMediaQuery
-
-```Typescript
-
-enum DEVICE {
-  DESKTOP = "DESKTOP",
-  TABLET = "TABLET",
-  MOBILE = "MOBILE"
-}
-...
-const Component : React.FC<IProps> => {
-  const [currentDevice] = useMediaQuery({
-    [DEVICE.DESKTOP] : "1240px",
-    [DEVICE.TABLET] : "768px",
-    [DEVICE.MOBILE] : "425px"
-  },DEVICE.MOBILE)
-  
-  return(
-    currentDevice === DEVICE.DESKTOP ? <DesktopComponent/> :
-    currentDevice === DEVICE.TABLET ? <TabletComponent/> :
-    currentDevice === DEVICE.MOBILE ? <MobileComponent/> :
-    <DefaultComponent/>
-  )
-}
-
-```
-
-
-=======
 | API                                         | Result             | Parameter                                                                          | Description                               |
 | ------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------- | ----------------------------------------- |
 | `useMediaQuery(config, initial)`            | [mediaType, error] | `config : { key : string }`, `initial : string`                                    | get Media Query from config.              |
 | `useScrollLock(on)`                         | void               | `on : boolean`                                                                     | scrollLock when some component is visible |
 | `useColorPick(image, position, initColor?)` | {color, loading}   | `image: string | File`, `position : { x: number, y: number }`, `initColor: string` | hook for color pick from image            |
->>>>>>> 82ce810 (Docs : write about useColorPick API)

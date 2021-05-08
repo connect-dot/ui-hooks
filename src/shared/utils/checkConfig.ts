@@ -1,3 +1,3 @@
 export function checkConfig(config: any) {
-    if (!config) throw new Error("Need to config");
+    if (!config) throw new Error("ERROR: should pass config object");
 }
