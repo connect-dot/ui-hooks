@@ -4,24 +4,20 @@ interface IResponsibleHookConfig {
 }
 
 function checkBrowser() {
-    if (typeof window !== undefined) {
-        return true;
-    }
+    if (typeof window !== undefined) return true;
     return false;
 }
 
 function checkPC() {
     const PC_OS = "win16|win32|win64|mac|macintel";
-    if (navigator.platform && PC_OS.indexOf(navigator.platform.toLowerCase()) >= 0) {
-        return true;
-    }
+    const isPC = navigator.platform && PC_OS.indexOf(navigator.platform.toLowerCase()) >= 0;
+
+    if (isPC) return true;
     return false;
 }
 
 function checkConfig(config: any) {
-    if (!config) {
-        throw new Error("Need to config");
-    }
+    if (!config) throw new Error("Need to config");
 }
 
 function sortConfigWithSize(config: IResponsibleHookConfig, order: "ASC" | "DESC" = "ASC") {
@@ -30,9 +26,9 @@ function sortConfigWithSize(config: IResponsibleHookConfig, order: "ASC" | "DESC
     const sortedConfigEntries = configEntries.sort((before, after) => {
         const beforeSize = Number(before[1].replace("px", ""));
         const afterSize = Number(after[1].replace("px", ""));
-        if (!before || !afterSize) {
-            throw new Error("You need to use px in size");
-        }
+
+        if (!before || !afterSize) throw new Error("You need to use px in size");
+
         return order === "ASC" ? beforeSize - afterSize : afterSize - beforeSize;
     });
     sortedConfigEntries.forEach(item => {
@@ -71,7 +67,7 @@ export const useMediaQuery = (config: IResponsibleHookConfig, initial: string): 
             [initial, configKeys]
         );
 
-        const mediaQuerys = useMemo(
+        const mediaQueries = useMemo(
             () =>
                 configKeys.map(key => {
                     const mediaQuery = window.matchMedia(`screen and (max-width: ${config[key]})`);
@@ -81,7 +77,7 @@ export const useMediaQuery = (config: IResponsibleHookConfig, initial: string): 
         );
 
         useEffect(() => {
-            const shouldInitial = !mediaQuerys.reverse().some(item => {
+            const shouldInitial = !mediaQueries.reverse().some(item => {
                 const { mediaQuery, type } = item;
                 if (mediaQuery.matches) {
                     setMediaType(type);
@@ -93,23 +89,24 @@ export const useMediaQuery = (config: IResponsibleHookConfig, initial: string): 
             if (shouldInitial) {
                 setMediaType(initial);
             }
-        }, [mediaQuerys, initial]);
+        }, [mediaQueries, initial]);
 
         useEffect(() => {
             if (checkPC()) {
-                mediaQuerys.forEach(item => {
+                mediaQueries.forEach(item => {
                     const { mediaQuery, eventHandler } = item;
                     mediaQuery.addEventListener("change", eventHandler);
                 });
 
                 return () => {
-                    mediaQuerys.forEach(item => {
+                    mediaQueries.forEach(item => {
                         const { mediaQuery, eventHandler } = item;
                         mediaQuery.removeEventListener("change", eventHandler);
                     });
                 };
             }
-        }, [mediaQuerys]);
+        }, [mediaQueries]);
+
         return [mediaType];
     } catch (error) {
         return ["Error", error];
