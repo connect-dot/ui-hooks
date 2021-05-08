@@ -1,23 +1,8 @@
 import { useEffect, useMemo, useState, useCallback, useRef } from "react";
+
+import { checkBrowser, checkPC, checkConfig } from "../../shared/utils";
 interface IResponsibleHookConfig {
     [type: string]: string;
-}
-
-function checkBrowser() {
-    if (typeof window !== undefined) return true;
-    return false;
-}
-
-function checkPC() {
-    const PC_OS = "win16|win32|win64|mac|macintel";
-    const isPC = navigator.platform && PC_OS.indexOf(navigator.platform.toLowerCase()) >= 0;
-
-    if (isPC) return true;
-    return false;
-}
-
-function checkConfig(config: any) {
-    if (!config) throw new Error("Need to config");
 }
 
 function sortConfigWithSize(config: IResponsibleHookConfig, order: "ASC" | "DESC" = "ASC") {
