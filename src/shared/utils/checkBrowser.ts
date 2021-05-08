@@ -1,4 +1,4 @@
-export function checkBrowser() {
-  if (typeof window !== undefined) return true;
-  return false;
+export function checkBrowser(): boolean {
+    if (typeof window === "object") return true;
+    return false;
 }
