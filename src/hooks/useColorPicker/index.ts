@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+
 import { rgbToHex, checkCanvas } from "../../shared/utils";
 
 type ImageType = File | string;
