@@ -1,9 +1,11 @@
 [![npm version](https://badge.fury.io/js/%40connect-dot%2Fui-hooks.svg)](https://badge.fury.io/js/%40connect-dot%2Fui-hooks)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Maintainability](https://api.codeclimate.com/v1/badges/5efcfb6a2ac1dcceb7c7/maintainability)](https://codeclimate.com/github/connect-dot/ui-hooks/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5efcfb6a2ac1dcceb7c7/test_coverage)](https://codeclimate.com/github/connect-dot/ui-hooks/test_coverage)
 [![GitHubstar](https://img.shields.io/github/stars/connect-dot/ui-hooks?style=social)]()
 ![GitHub watchers](https://img.shields.io/github/watchers/connect-dot/ui-hooks?style=social)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/5efcfb6a2ac1dcceb7c7/maintainability)](https://codeclimate.com/github/connect-dot/ui-hooks/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5efcfb6a2ac1dcceb7c7/test_coverage)](https://codeclimate.com/github/connect-dot/ui-hooks/test_coverage)
+
 
 ![GitHub issues](https://img.shields.io/github/issues/connect-dot/ui-hooks?color=success)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/connect-dot/ui-hooks?color=critical)
