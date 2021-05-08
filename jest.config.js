@@ -1,5 +1,4 @@
 module.exports = {
-  
   testRegex: 'test.(js|ts|tsx)$',
   coverageDirectory: './coverage/',
   collectCoverage: true,

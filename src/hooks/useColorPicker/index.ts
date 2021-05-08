@@ -46,8 +46,10 @@ async function convertImageToString(imgURL: ImageType) {
 
 async function mountCanvas() {
     try {
+        if (!checkCanvas()){
+            throw new Error("This browser doesn't support canvas apis")
+        };
         const canvas = document.createElement("canvas");
-        if (!checkCanvas(canvas)) throw new Error("This browser doesn't support canvas apis");
 
         canvas.id = CANVAS_ID;
         canvas.hidden = true;
