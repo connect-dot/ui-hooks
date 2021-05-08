@@ -31,19 +31,26 @@
         "prettier": "prettier --write \"src/**/*.{ts,tsx,js}\"",
         "tslint": "tslint --project tsconfig.json --fix",
         "build": "tsc",
+        "test": "jest",
+        "test:dev": "jest --watch --no-coverage",
+        "test:coverage:watch": "jest --watch",
         "pre-publish": "yarn prettier && yarn tslint &&  yarn build",
         "publish": "yarn pre-publish && npm publish --access public"
     },
     "dependencies": {
-        "jest": "^26.6.3",
         "react": "^16.13.1",
         "react-dom": "^16.13.1"
     },
     "devDependencies": {
+        "@babel/core": "^7.14.0",
+        "@babel/preset-env": "^7.14.1",
+        "@babel/preset-typescript": "^7.13.0",
+        "@types/jest": "^26.0.23",
         "@types/node": "^13.11.1",
         "@types/react": "^16.9.34",
         "@typescript-eslint/eslint-plugin": "^2.27.0",
         "@typescript-eslint/parser": "^2.27.0",
+        "jest": "^26.6.3",
         "prettier": "^2.0.4",
         "typescript": "^3.8.3"
     },
