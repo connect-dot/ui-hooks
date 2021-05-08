@@ -11,6 +11,7 @@ describe("[shared/utils] checkBrowser", () => {
     });
 
     it("should return true with object window", () => {
+        document.createElement
         expect(checkBrowser()).toBe(true);
     });
 });
