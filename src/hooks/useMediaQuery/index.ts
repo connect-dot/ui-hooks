@@ -44,9 +44,8 @@ export const useMediaQuery = (config: IResponsibleHookConfig, initial: string): 
                     });
                 }
                 const index = configKeys.findIndex(value => value === type);
-                if (index && index - 1 >= 0) {
-                    setMediaType(configKeys[index - 1]);
-                }
+
+                if (index && index - 1 >= 0) setMediaType(configKeys[index - 1]);
                 setMediaType(initial);
             },
             [initial, configKeys]
@@ -64,32 +63,31 @@ export const useMediaQuery = (config: IResponsibleHookConfig, initial: string): 
         useEffect(() => {
             const shouldInitial = !mediaQueries.reverse().some(item => {
                 const { mediaQuery, type } = item;
-                if (mediaQuery.matches) {
-                    setMediaType(type);
-                    latestType.current = type;
-                    return true;
-                }
-                return false;
+
+                if (!mediaQuery.matches) return false;
+
+                setMediaType(type);
+                latestType.current = type;
+                return true;
             });
-            if (shouldInitial) {
-                setMediaType(initial);
-            }
+
+            if (shouldInitial) setMediaType(initial);
         }, [mediaQueries, initial]);
 
         useEffect(() => {
-            if (checkPC()) {
+            if (!checkPC()) return;
+
+            mediaQueries.forEach(item => {
+                const { mediaQuery, eventHandler } = item;
+                mediaQuery.addEventListener("change", eventHandler);
+            });
+
+            return () => {
                 mediaQueries.forEach(item => {
                     const { mediaQuery, eventHandler } = item;
-                    mediaQuery.addEventListener("change", eventHandler);
+                    mediaQuery.removeEventListener("change", eventHandler);
                 });
-
-                return () => {
-                    mediaQueries.forEach(item => {
-                        const { mediaQuery, eventHandler } = item;
-                        mediaQuery.removeEventListener("change", eventHandler);
-                    });
-                };
-            }
+            };
         }, [mediaQueries]);
 
         return [mediaType];
